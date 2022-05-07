@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
-      include: [{ model: Product, attributes: 'category_id' }]
+      include: [{ model: Product }]
     });
 
     if (!categoryData) {
@@ -47,10 +47,7 @@ router.post('/', async (req, res) => {
 
 // update a category by its `id` value
 router.put('/:id', async (req, res) => {
-    Category.update(
-      {
-        category_name: req.body.category_name,
-      },
+    Category.update(req.body,
       {
         where: {
           id: req.params.id,
